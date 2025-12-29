@@ -10,9 +10,9 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.url}`);
     next();
 });
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/recources', express.static(path.join(__dirname, 'recources')));
 
-// Маршруты для HTML страниц
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -22,6 +22,7 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
+    console.log('Register page requested');
     res.sendFile(path.join(__dirname, 'register.html'));
 });
 
@@ -41,7 +42,6 @@ app.get('/articles', (req, res) => {
     res.sendFile(path.join(__dirname, 'articles.html'));
 });
 
-// Normalize trailing slash and serve article pages without .html
 app.get('/articles/', (req, res) => {
     res.redirect(301, '/articles');
 });
@@ -82,5 +82,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Сервер запущен на http://localhost:${PORT}`);
+    console.log(`Сервер запущен`);
 });
