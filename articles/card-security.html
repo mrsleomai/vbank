@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="requires-auth" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Как защитить банковскую карту от мошенников | В-Банк</title>
+    <script src="/script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="/components/navbar.js"></script>
+    <script src="/components/footer.js"></script>
+    <script src="/components/accessibility.js"></script>
+    <script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+    <script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+</head>
+<body data-requires-auth="true" class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+    <custom-accessibility></custom-accessibility>
+
+    <main class="p-8">
+        <div class="site-container site-container--wide">
+            <div class="site-card">
+                <a href="/articles" class="text-sm text-blue-600 hover:underline">← Вернуться к ленте новостей</a>
+                <h1 class="text-3xl font-bold text-blue-800 mb-6 mt-4">Как защитить банковскую карту от мошенников</h1>
+                <hr class="my-6 border-gray-200">
+
+                <div class="text-gray-700 space-y-4">
+                    <p>Мошенники используют разные схемы — от фишинга по SMS до поддельных сайтов. Ниже — проверенные рекомендации, которые помогут защитить ваши деньги.</p>
+
+                    <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Основные правила</h2>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Не сообщайте PIN, CVV и коды подтверждения по телефону или в сообщениях.</li>
+                        <li>Активируйте SMS/Push-уведомления о транзакциях.</li>
+                        <li>Используйте карты с бесконтактной оплатой осторожно в публичных местах и снимайте их из-под глаз посторонних.</li>
+                        <li>Регулярно проверяйте выписки и сразу сообщайте о подозрительных списаниях в банк.</li>
+                    </ul>
+
+                    <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Если произошла подозрительная операция</h2>
+                    <ol class="list-decimal pl-5 space-y-2">
+                        <li>Незамедлительно звоните в службу поддержки банка и блокируйте карту.</li>
+                        <li>Соберите подтверждающие документы (выписка, скрины переписки) и подайте заявление в отделение.</li>
+                        <li>При необходимости обратитесь в полицию и сохраните номера обращений.</li>
+                    </ol>
+
+                    <p class="mt-4">Соблюдая простые правила и оперативно реагируя, вы значительно уменьшаете риск потерь при мошенничестве.</p>
+
+                    <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Дополнительные меры защиты</h2>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li>Используйте одноразовые коды и двухфакторную аутентификацию где возможно.</li>
+                        <li>Привязывайте карту к защищённому мобильному приложению банка и включайте push-уведомления.</li>
+                        <li>Проверяйте URL сайта банка и не переходите по ссылкам из сомнительных сообщений.</li>
+                        <li>При утечке данных немедленно смените пароли и уведомите банк.</li>
+                    </ul>
+
+                    <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Что банк попросит при жалобе</h2>
+                    <p class="text-gray-700">Для расследования чаще всего потребуются: данные о транзакциях (выписка), скриншоты переписок или сайтов, где произошла мошенническая операция, и заявление клиента в банк. Чем быстрее вы соберёте информацию, тем выше шанс успешного возврата средств.</p>
+
+                    <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Часто задаваемые вопросы</h2>
+                    <div class="space-y-3 text-gray-700">
+                        <div>
+                            <strong>В: Сколько времени занимает возврат средств?</strong>
+                            <p class="mt-1">О: Период расследования может занимать от нескольких дней до нескольких недель в зависимости от сложности случая.</p>
+                        </div>
+                        <div>
+                            <strong>В: Нужно ли обращаться в полицию?</strong>
+                            <p class="mt-1">О: При значительных суммах или если банк требует — да, заявление в полицию поможет при взыскании и оформлении страховых случаев.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">
+                        <i data-feather="calendar" class="w-4 h-4 inline mr-1"></i>
+                        Опубликовано: 28 марта 2025
+                        <span class="mx-2">•</span>
+                        <i data-feather="clock" class="w-4 h-4 inline mr-1"></i>
+                        Время чтения: 4 мин
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        <i data-feather="user" class="w-4 h-4 inline mr-1"></i>
+                        Автор: Отдел безопасности В‑Банка
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

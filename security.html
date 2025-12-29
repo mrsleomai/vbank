@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="requires-auth" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Безопасность ваших финансов | В-Банк</title>
+    <script src="script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/accessibility.js"></script>
+    <script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+    <script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+</head>
+<body data-requires-auth="true" class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+    <custom-accessibility></custom-accessibility>
+
+    <main class="p-8">
+            <div class="site-container site-container--wide">
+                <div class="site-card">
+                    <h1 class="text-3xl font-bold text-blue-800 mb-6">Безопасность ваших финансов</h1>
+                    
+                    <div class="prose max-w-none">
+                        <p class="text-lg text-gray-700 mb-8">
+                            Ваш комфорт и сохранность денежных средств являются приоритетом В-Банка. 
+                            Чтобы защитить ваши деньги от действий злоумышленников, мы подготовили рекомендации, 
+                            которые помогут избежать неприятностей.
+                        </p>
+                        
+                        <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+                            <h2 class="text-xl font-semibold text-red-800 mb-4">Основные способы обмана мошенниками</h2>
+                            <p class="text-gray-700 mb-4">
+                                Чтобы обеспечить максимальную защиту своих средств, следуйте простым рекомендациям:
+                            </p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                                <li>Не передавайте третьим лицам свою личную информацию, включая паспортные данные, реквизиты банковских карт и коды подтверждения.</li>
+                                <li>Регулярно обновляйте антивирусные программы и используйте защищённые Wi-Fi соединения.</li>
+                                <li>Установите двухфакторную аутентификацию для входа в мобильный банк.</li>
+                                <li>Проверяйте баланс счёта регулярно и сразу же обращайтесь в поддержку банка при обнаружении несанкционированных операций.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h2 class="text-xl font-semibold text-blue-800 mb-4">Что делать, если произошло хищение денег?</h2>
+                            <div class="bg-yellow-50 p-6 rounded-lg">
+                                <div class="flex items-start space-x-4">
+                                    <i data-feather="alert-triangle" class="w-8 h-8 text-yellow-600 flex-shrink-0"></i>
+                                    <div>
+                                        <p class="font-semibold text-gray-800 mb-2">Немедленно заблокируйте карту!</p>
+                                        <p class="text-gray-700">
+                                            Позвоните по телефону службы поддержки. Наши специалисты оперативно примут меры 
+                                            по защите ваших средств.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h2 class="text-xl font-semibold text-blue-800 mb-4">Полезные советы по безопасности</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-blue-50 p-5 rounded-lg">
+                                    <div class="flex items-center space-x-3 mb-3">
+                                        <i data-feather="smartphone" class="w-6 h-6 text-blue-600"></i>
+                                        <h3 class="font-semibold text-gray-800">Устройства и доступ</h3>
+                                    </div>
+                                    <p class="text-gray-700 text-sm">
+                                        Используйте разные устройства для совершения платежей и входа в банковские приложения.
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-blue-50 p-5 rounded-lg">
+                                    <div class="flex items-center space-x-3 mb-3">
+                                        <i data-feather="lock" class="w-6 h-6 text-blue-600"></i>
+                                        <h3 class="font-semibold text-gray-800">Пароли</h3>
+                                    </div>
+                                    <p class="text-gray-700 text-sm">
+                                        Создавайте сложные пароли и меняйте их каждые три месяца.
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-blue-50 p-5 rounded-lg">
+                                    <div class="flex items-center space-x-3 mb-3">
+                                        <i data-feather="shield" class="w-6 h-6 text-blue-600"></i>
+                                        <h3 class="font-semibold text-gray-800">Данные карт</h3>
+                                    </div>
+                                    <p class="text-gray-700 text-sm">
+                                        Отключите опцию сохранения карт в браузерах и приложениях магазинов.
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-blue-50 p-5 rounded-lg">
+                                    <div class="flex items-center space-x-3 mb-3">
+                                        <i data-feather="bell" class="w-6 h-6 text-blue-600"></i>
+                                        <h3 class="font-semibold text-gray-800">Бдительность</h3>
+                                    </div>
+                                    <p class="text-gray-700 text-sm">
+                                        Помните, ваша бдительность — залог финансовой безопасности!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                            <div class="flex items-center space-x-4">
+                                <i data-feather="phone-call" class="w-8 h-8 text-green-600"></i>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800 mb-1">Экстренная связь</h3>
+                                    <p class="text-gray-700">
+                                        Телефон службы поддержки: <span class="font-semibold">+7 (953) 524-24-78</span><br>
+                                        Работаем 24/7 для вашей безопасности
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <custom-footer></custom-footer>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

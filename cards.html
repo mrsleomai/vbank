@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="requires-auth" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дебетовые карты | В-Банк</title>
+    <script src="script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/accessibility.js"></script>
+    <script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+    <script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+</head>
+<body data-requires-auth="true" class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+    <custom-accessibility></custom-accessibility>
+
+    <main class="p-8">
+            <div class="site-container site-container--wide">
+                <div class="site-card">
+                    <h1 class="text-3xl font-bold text-blue-800 mb-6">Дебетовые карты</h1>
+                    
+                    <div class="prose max-w-none">
+                        <p class="text-lg text-gray-700 mb-6">
+                            Мы ценим наших клиентов и предлагаем прозрачные условия обслуживания карт, 
+                            позволяющие эффективно управлять вашими финансами.
+                        </p>
+                        
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                            <h2 class="text-xl font-semibold text-blue-800 mb-3">Основные комиссии и платежи</h2>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Годовая комиссия за обслуживание карты:</h3>
+                                    <ul class="list-disc pl-5 text-gray-700 mt-2">
+                                        <li>Стандартная карта — бесплатно первые два года, далее ₽99 в год.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Стоимость SMS-уведомлений:</h3>
+                                    <ul class="list-disc pl-5 text-gray-700 mt-2">
+                                        <li>Бесплатно при подключенной услуге мобильного банкинга.</li>
+                                        <li>₽59 в месяц отдельно.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Страхование от мошенничества:</h3>
+                                    <ul class="list-disc pl-5 text-gray-700 mt-2">
+                                        <li>Включено автоматически для всех типов карт.</li>
+                                        <li>Дополнительная защита PIN-кода — бесплатно.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <p class="font-semibold text-gray-800">
+                                        Переводы внутри банка — без комиссий.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h2 class="text-xl font-semibold text-blue-800 mb-4">Способы пополнения карты</h2>
+                            <p class="text-gray-700 mb-4">
+                                Вы можете пополнить карту несколькими удобными способами:
+                            </p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                                <li>Безналичный перевод с другого счета (без комиссии).</li>
+                                <li>Банкоматы В-Банка или партнеров сети.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Важная информация</h3>
+                            <p class="text-gray-700 mb-4">
+                                Обратитесь в службу поддержки клиентов, если у вас возникли дополнительные вопросы 
+                                или необходима консультация специалиста.
+                            </p>
+                            <div class="flex items-center space-x-2 text-blue-600">
+                                <i data-feather="phone"></i>
+                                <span class="font-semibold">Телефон службы поддержки: +7 (953) 524-24-78</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-gray-200">
+                            <p class="text-center text-gray-600 italic">
+                                Спасибо за доверие к В-Банку!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <custom-footer></custom-footer>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

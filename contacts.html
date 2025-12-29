@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="requires-auth" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты и поддержка | В-Банк</title>
+    <script src="script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/accessibility.js"></script>
+    <script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+    <script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+</head>
+<body data-requires-auth="true" class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+    <custom-accessibility></custom-accessibility>
+
+    <main class="p-8">
+            <div class="site-container site-container--wide">
+                <div class="site-card">
+                    <h1 class="text-3xl font-bold text-blue-800 mb-8">Контакты и поддержка</h1>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-800 mb-6">Обратитесь в службу поддержки В-Банка</h2>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-blue-100 p-3 rounded-full">
+                                        <i data-feather="phone" class="w-6 h-6 text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-800 mb-1">Телефон</h3>
+                                        <p class="text-gray-700 text-lg font-semibold">+7 (953) 524-24-78</p>
+                                        <p class="text-gray-600 text-sm mt-1">
+                                            Бесплатный звонок по России, в том числе из Донецкой и Луганской 
+                                            Народных Республик, Херсонской и Запорожской областей
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-blue-100 p-3 rounded-full">
+                                        <i data-feather="mail" class="w-6 h-6 text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-800 mb-1">Электронная почта</h3>
+                                        <ul class="text-gray-700 list-none">
+                                            <li><a href="mailto:info@vbank.ru" class="hover:underline">info@vbank.ru</a> — Общие вопросы</li>
+                                            <li><a href="mailto:support@vbank.ru" class="hover:underline">support@vbank.ru</a> — Служба поддержки</li>
+                                            <li><a href="mailto:press@vbank.ru" class="hover:underline">press@vbank.ru</a> — Пресс-служба</li>
+                                            <li><a href="mailto:legal@vbank.ru" class="hover:underline">legal@vbank.ru</a> — Юридический отдел</li>
+                                            <li><a href="mailto:partners@vbank.ru" class="hover:underline">partners@vbank.ru</a> — Отдел партнерств</li>
+                                        </ul>
+                                        <p class="text-gray-600 text-sm mt-2">
+                                            Отвечаем в течение 24 часов в рабочие дни
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-blue-100 p-3 rounded-full">
+                                        <i data-feather="clock" class="w-6 h-6 text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-800 mb-1">Время работы</h3>
+                                        <p class="text-gray-700">Круглосуточно, 7 дней в неделю</p>
+                                        <p class="text-gray-600 text-sm mt-1">
+                                            Телефонная поддержка доступна 24/7
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="bg-blue-50 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-blue-800 mb-4">Форма обратной связи</h3>
+                                
+                                <form class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Ваше имя</label>
+                                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                        <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
+                                        <input type="tel" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Сообщение</label>
+                                        <textarea rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                    </div>
+                                    
+                                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
+                                        Отправить сообщение
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 pt-8 border-t border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Часто задаваемые вопросы</h3>
+                        
+                        <div class="space-y-4">
+                            <details class="border border-gray-200 rounded-lg p-4">
+                                <summary class="font-medium text-gray-800 cursor-pointer">Как быстро отвечает поддержка?</summary>
+                                <p class="mt-2 text-gray-600">
+                                    Мы отвечаем на телефонные звонки мгновенно, на письма по электронной почте — в течение 24 часов.
+                                </p>
+                            </details>
+                            
+                            <details class="border border-gray-200 rounded-lg p-4">
+                                <summary class="font-medium text-gray-800 cursor-pointer">Как заблокировать карту при утере?</summary>
+                                <p class="mt-2 text-gray-600">
+                                    Позвоните по телефону +7 (953) 524-24-78 и назовите оператору данные карты.
+                                </p>
+                            </details>
+                            
+                            <details class="border border-gray-200 rounded-lg p-4">
+                                <summary class="font-medium text-gray-800 cursor-pointer">Как восстановить доступ к личному кабинету?</summary>
+                                <p class="mt-2 text-gray-600">
+                                    Напишите письмо на электронную почту support@vbank.ru с темой "Восстановление доступа к личному кабинету".
+                                </p>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <custom-footer></custom-footer>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="requires-auth" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта сайта | В-Банк</title>
+    <script src="script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/accessibility.js"></script>
+    <script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+    <script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+</head>
+<body data-requires-auth="true" class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+    <custom-accessibility></custom-accessibility>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="site-container site-card site-container--wide">
+            <h1 class="text-3xl font-bold text-blue-800 mb-2">Карта сайта</h1>
+            <p class="text-gray-600 mb-8">Структура сайта В-Банк для удобной навигации</p>
+            
+            <div class="space-y-8">
+                <!-- Основные страницы -->
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i data-feather="home" class="w-5 h-5 mr-2 text-blue-600"></i>
+                        Основные страницы
+                    </h2>
+                    <div class="ml-7">
+                        <div class="mb-3">
+                            <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Главная страница</a>
+                            <p class="text-gray-600 text-sm mt-1">Вход в личный кабинет, информация о банке</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <a href="/register" class="text-blue-600 hover:text-blue-800 font-medium">Регистрация / Стать клиентом</a>
+                            <p class="text-gray-600 text-sm mt-1">Создание учетной записи и заявка на карту</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <a href="/dashboard" class="text-blue-600 hover:text-blue-800 font-medium">Личный кабинет</a>
+                            <p class="text-gray-600 text-sm mt-1">Управление счетами, картами и операциями</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Информационные разделы -->
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i data-feather="info" class="w-5 h-5 mr-2 text-green-600"></i>
+                        Информационные разделы
+                    </h2>
+                    <div class="ml-7">
+                        <div class="mb-3">
+                            <a href="/cards" class="text-blue-600 hover:text-blue-800 font-medium">Дебетовые карты</a>
+                            <p class="text-gray-600 text-sm mt-1">Тарифы, комиссии, способы пополнения</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <a href="/security" class="text-blue-600 hover:text-blue-800 font-medium">Безопасность финансов</a>
+                            <p class="text-gray-600 text-sm mt-1">Защита от мошенников, рекомендации по безопасности</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <a href="/articles" class="text-blue-600 hover:text-blue-800 font-medium">Лента новостей</a>
+                            <p class="text-gray-600 text-sm mt-1">Полезные материалы о финансах и банковских услугах</p>
+                            <ul class="ml-6 mt-2 list-disc">
+                                <li><a href="/articles/115-fz" class="text-blue-600 hover:text-blue-800">Закон №115‑ФЗ</a></li>
+                                <li><a href="/articles/choose-card" class="text-blue-600 hover:text-blue-800">Как выбрать карту</a></li>
+                                <li><a href="/articles/finance-basics" class="text-blue-600 hover:text-blue-800">Финансовая грамотность</a></li>
+                                <li><a href="/articles/investing" class="text-blue-600 hover:text-blue-800">Инвестиции для начинающих</a></li>
+                                <li><a href="/articles/card-security" class="text-blue-600 hover:text-blue-800">Как защитить карту от мошенников</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <a href="/contacts" class="text-blue-600 hover:text-blue-800 font-medium">Контакты и поддержка</a>
+                            <p class="text-gray-600 text-sm mt-1">Контактная информация, форма обратной связи</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Служебные страницы -->
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i data-feather="settings" class="w-5 h-5 mr-2 text-gray-600"></i>
+                        Служебные страницы
+                    </h2>
+                    <div class="ml-7">
+                        <div class="mb-3">
+                            <a href="/404" class="text-blue-600 hover:text-blue-800 font-medium">Страница 404</a>
+                            <p class="text-gray-600 text-sm mt-1">Страница не найдена</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <a href="/sitemap" class="text-blue-600 hover:text-blue-800 font-medium">Карта сайта</a>
+                            <p class="text-gray-600 text-sm mt-1">Текущая страница со структурой сайта</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

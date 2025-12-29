@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="requires-auth" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>В-Банк | Личный кабинет</title>
+    <script src="script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/accessibility.js"></script>
+    <script src="components/sidebar.js"></script>
+    <script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+    <script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+</head>
+<body data-requires-auth="true" class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+    <custom-accessibility></custom-accessibility>
+
+    <div class="flex">
+        <custom-sidebar></custom-sidebar>
+        
+        <main class="flex-1 p-8">
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold text-blue-800">Приветствуем, <span id="userName">Иван Иванов</span>!</h1>
+            </div>
+            
+            <div id="clientView" class="space-y-6">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h2 class="text-xl font-semibold text-blue-800">Мои карты</h2>
+                        <button id="applyCardBtn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Оформить новую карту</button>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Номер карты</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Статус</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Срок закрытия</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200"><!-- Заполняется динамически скриптом --></tbody>
+                        </table>
+                    </div>
+
+                </div>
+                
+                <div id="clientApplicationsSection" class="bg-white rounded-lg shadow p-6 hidden">
+                    <h2 class="text-xl font-semibold mb-4 text-blue-800">Заявки на открытие карт</h2>
+                    <div class="overflow-x-auto">
+                        <table id="clientApplicationsTable" class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Дата подачи</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ваш комментарий</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Статус</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <!-- заявки клиента будут добавлены динамически -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-6">
+                    <div id="recentOperations" class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-blue-800">Последние операции</h3>
+                        <div id="recentOpsList" class="space-y-4">
+                            <!-- операции будут подгружены динамически -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="employeeView" class="space-y-6 hidden">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-semibold mb-4 text-blue-800">Заявки на карты</h2>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Номер карты</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ФИО клиента</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Статус</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Комментарий клиента</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Дата посл. изменения</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200"><!-- Заполняется динамически скриптом --></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <custom-footer></custom-footer>
+
+    <!-- Модальное окно оформления карты -->
+    <div id="applyCardModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+        <div class="fixed inset-0 bg-black opacity-50"></div>
+        <div class="bg-white rounded-lg shadow-lg max-w-lg w-full z-10 p-6 mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-blue-800">Оформить новую карту</h3>
+                <button id="closeApplyModal" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+            </div>
+            <div>
+                <label class="block text-sm text-gray-700 mb-2">Комментарий сотруднику (необязательно)</label>
+                <textarea id="applyCardComment" class="w-full border rounded p-2 mb-4" rows="4" placeholder="Напишите комментарий..."></textarea>
+                <div class="flex justify-end space-x-2">
+                    <button id="cancelApply" class="px-4 py-2 border rounded">Отмена</button>
+                    <button id="submitCardApplication" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Отправить заявку</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно подтверждения -->
+    <div id="applyConfirmModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+        <div class="fixed inset-0 bg-black opacity-50"></div>
+        <div class="bg-white rounded-lg shadow-lg max-w-lg w-full z-20 p-6 mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-blue-800">Подтвердите действие</h3>
+                <button id="closeApplyConfirmModal" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+            </div>
+            <div>
+                <p id="applyConfirmMessage" class="text-sm text-gray-700 mb-4 whitespace-pre-wrap">Вы уверены, что хотите отправить заявку на создание карты?</p>
+                <div class="flex justify-end space-x-2">
+                    <button id="cancelApplyConfirm" class="px-4 py-2 border rounded">Отмена</button>
+                    <button id="confirmApply" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Подтвердить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно просмотра комментария -->
+    <div id="viewCommentModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+        <div class="fixed inset-0 bg-black opacity-50"></div>
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full z-10 p-6 mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-blue-800">Комментарий к заявке</h3>
+                <button id="closeViewComment" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+            </div>
+            <div>
+                <p id="viewCommentText" class="text-sm text-gray-700 whitespace-pre-wrap">—</p>
+                <div class="flex justify-end mt-4">
+                    <button id="closeViewComment2" class="px-4 py-2 border rounded">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно подтверждения: Взять в работу -->
+    <div id="takeInWorkModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+        <div class="fixed inset-0 bg-black opacity-50"></div>
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full z-10 p-6 mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-blue-800">Подтвердите действие</h3>
+                <button id="closeTakeInWorkModal" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+            </div>
+            <div>
+                <p id="takeInWorkMessage" class="text-sm text-gray-700 mb-4 whitespace-pre-wrap">Вы уверены, что хотите взять в работу заявку на открытие карты? После подтверждения подготовьте все необходимые документы и пригласите клиента в офис банка для выдачи карты.</p>
+                <div class="flex justify-end space-x-2">
+                    <button id="cancelTakeInWork" class="px-4 py-2 border rounded">Отмена</button>
+                    <button id="confirmTakeInWork" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Взять в работу</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно подтверждения: Активировать карту -->
+    <div id="activateCardModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+        <div class="fixed inset-0 bg-black opacity-50"></div>
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full z-10 p-6 mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-blue-800">Подтвердите активацию карты</h3>
+                <button id="closeActivateCardModal" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+            </div>
+            <div>
+                <p id="activateCardMessage" class="text-sm text-gray-700 mb-4 whitespace-pre-wrap">Пожалуйста, убедитесь, что карта передана клиенту и договор обслуживания подписан обеими сторонами.</p>
+                <div class="flex justify-end space-x-2">
+                    <button id="cancelActivateCard" class="px-4 py-2 border rounded">Отмена</button>
+                    <button id="confirmActivateCard" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Активировать карту</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно подтверждения: Заблокировать карту -->
+    <div id="blockCardModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+        <div class="fixed inset-0 bg-black opacity-50"></div>
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full z-10 p-6 mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-red-700">Подтвердите блокировку</h3>
+                <button id="closeBlockCardModal" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+            </div>
+            <div>
+                <p id="blockCardMessage" class="text-sm text-gray-700 mb-4 whitespace-pre-wrap">Вы уверены, что хотите заблокировать эту карту? Клиент не сможет совершать транзакции по заблокированной карте.</p>
+                <div class="flex justify-end space-x-2">
+                    <button id="cancelBlockCard" class="px-4 py-2 border rounded">Отмена</button>
+                    <button id="confirmBlockCard" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Заблокировать карту</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно подтверждения: Разблокировать карту -->
+    <div id="unblockCardModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+        <div class="fixed inset-0 bg-black opacity-50"></div>
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full z-10 p-6 mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-green-700">Подтвердите разблокировку</h3>
+                <button id="closeUnblockCardModal" class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+            </div>
+            <div>
+                <p id="unblockCardMessage" class="text-sm text-gray-700 mb-4 whitespace-pre-wrap">Вы уверены, что хотите разблокировать эту карту? Клиент снова сможет совершать транзакции по карте.</p>
+                <div class="flex justify-end space-x-2">
+                    <button id="cancelUnblockCard" class="px-4 py-2 border rounded">Отмена</button>
+                    <button id="confirmUnblockCard" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Разблокировать карту</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <script>
+        feather.replace();
+        
+        // Проверка роли пользователя и отображение соответствующего интерфейса
+        document.addEventListener('DOMContentLoaded', function() {
+            const userRole = localStorage.getItem('userRole') || 'client';
+            let userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            
+            if (userData.firstName && userData.lastName) {
+                document.getElementById('userName').textContent = `${userData.lastName} ${userData.firstName}${userData.middleName ? ' ' + userData.middleName : ''}`;
+            }
+            
+            if (userRole === 'employee') {
+                document.getElementById('clientView').classList.add('hidden');
+                document.getElementById('employeeView').classList.remove('hidden');
+            }
+        });
+    </script>
+    <script>
+    feather.replace();
+    
+    // Проверка роли пользователя и загрузка данных
+    document.addEventListener('DOMContentLoaded', async function() {
+        const isAuthenticated = await checkAuth();
+        
+        if (!isAuthenticated) {
+            showNotification('error', 'Требуется авторизация');
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 2000);
+            return;
+        }
+        
+        const userRole = localStorage.getItem('userRole') || 'client';
+        let userData = JSON.parse(localStorage.getItem('userData') || '{}');
+        if (!userData.id) {
+            userData.id = window.generateUUID();
+            localStorage.setItem('userData', JSON.stringify(userData));
+        }
+        (function migrateLegacyRecordsForUser() {
+            try {
+                if (!userData || !userData.id) return;
+                const fullName = userData.lastName ? `${userData.lastName} ${userData.firstName || ''}`.trim() : null;
+                if (!fullName) return;
+
+                let changed = false;
+                let cards = JSON.parse(localStorage.getItem('clientCards') || '[]');
+                cards = cards.map(c => {
+                    if (!c.clientId && c.clientName && c.clientName === fullName) {
+                        c.clientId = userData.id;
+                        changed = true;
+                    }
+                    return c;
+                });
+                if (changed) localStorage.setItem('clientCards', JSON.stringify(cards));
+
+                changed = false;
+                let apps = JSON.parse(localStorage.getItem('cardApplications') || '[]');
+                apps = apps.map(a => {
+                    if (!a.clientId && a.clientName && a.clientName === fullName) {
+                        a.clientId = userData.id;
+                        changed = true;
+                    }
+                    return a;
+                });
+                if (changed) {
+                    localStorage.setItem('cardApplications', JSON.stringify(apps));
+                    document.dispatchEvent(new CustomEvent('cardApplicationsUpdated', { detail: apps }));
+                }
+
+                if (changed) {
+                    if (typeof loadEmployeeCards === 'function') loadEmployeeCards();
+                    if (typeof loadClientCards === 'function') loadClientCards();
+                    if (typeof computeDashboardStats === 'function') computeDashboardStats();
+                }
+            } catch (e) {
+                console.warn('Migration failed', e);
+            }
+        })();
+        
+        // Обновление приветствия
+        if (userData.firstName && userData.lastName) {
+            document.getElementById('userName').textContent = 
+                `${userData.lastName} ${userData.firstName}${userData.middleName ? ' ' + userData.middleName : ''}`;
+        }
+        
+        if (userRole === 'employee') {
+            // Загрузка данных для сотрудника
+            document.getElementById('clientView').classList.add('hidden');
+            document.getElementById('employeeView').classList.remove('hidden');
+            
+            await loadEmployeeCards();
+        } else {
+            // Загрузка данных для клиента
+            await loadClientCards();
+        }
+    });
+    
+    // Глобальная функция форматирования дат (DD.MM.YYYY HH:mm)
+    function formatDateShort(iso) {
+        if (!iso) return '-';
+        try {
+            const d = new Date(iso);
+            if (isNaN(d)) return iso;
+            return d.toLocaleString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        } catch (e) {
+            return iso;
+        }
+    }
+
+    // Загрузка карт клиента
+    async function loadClientCards() {
+        const cards = typeof window.getClientCards === 'function' ? await window.getClientCards() : [];
+        const tbody = document.querySelector('#clientView table tbody');
+        
+        if (tbody) {
+            tbody.innerHTML = '';
+            
+            cards.forEach(card => {
+                const row = document.createElement('tr');
+                
+                let statusBadge = '';
+                let statusClass = '';
+                let statusText = '';
+                
+                switch(card.status) {
+                    case 'ACTIVE':
+                        statusClass = 'bg-green-100 text-green-800';
+                        statusText = 'Активна';
+                        break;
+                    case 'BLOCKED':
+                        statusClass = 'bg-red-100 text-red-800';
+                        statusText = 'Заблокирована';
+                        break;
+                    case 'PENDING':
+                        statusClass = 'bg-yellow-100 text-yellow-800';
+                        statusText = 'В обработке';
+                        break;
+                    default:
+                        statusClass = 'bg-gray-100 text-gray-800';
+                        statusText = card.status;
+                }
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${card.fullNumber || card.cardNumber}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+                            ${statusText}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${card.expiryDate || '-'}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            if (cards.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td colspan="3" class="px-6 py-4 text-center text-gray-500">
+                        <div class="py-8"><p class="text-sm">У вас пока нет карт</p></div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            }
+            // Обновляем список заявок клиента (если есть)
+            if (typeof window.renderClientApplications === 'function') await window.renderClientApplications();
+        }
+    }
+    
+    // Загрузка карт для сотрудника
+    async function loadEmployeeCards() {
+        const cards = typeof window.getAllCards === 'function' ? await window.getAllCards() : [];
+        const tbody = document.querySelector('#employeeView table tbody');
+        
+        // Сортируем по дате последнего изменения (modifiedAt или applicationDate) — более свежие сверху
+        cards.sort((a, b) => {
+            const ta = new Date(a.modifiedAt || a.applicationDate || 0).getTime() || 0;
+            const tb = new Date(b.modifiedAt || b.applicationDate || 0).getTime() || 0;
+            return tb - ta;
+        });
+        
+        if (tbody) {
+            tbody.innerHTML = '';
+            
+            cards.forEach(card => {
+                const row = document.createElement('tr');
+                
+                let statusBadge = '';
+                let statusClass = '';
+                let statusText = '';
+                
+                switch(card.status) {
+                    case 'ACTIVE':
+                        statusClass = 'bg-green-100 text-green-800';
+                        statusText = 'Карта активна';
+                        break;
+                    case 'BLOCKED':
+                        statusClass = 'bg-red-100 text-red-800';
+                        statusText = 'Заблокирована';
+                        break;
+                    case 'CREATED':
+                        statusClass = 'bg-gray-100 text-gray-800';
+                        statusText = 'Новая';
+                        break;
+                    case 'PENDING':
+                        statusClass = 'bg-yellow-100 text-yellow-800';
+                        statusText = 'В работе';
+                        break;
+                    default:
+                        statusClass = 'bg-gray-100 text-gray-800';
+                        statusText = card.status;
+                }
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${card.cardNumber}${card.isApplication ? ' (заявка)' : ''}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${card.clientName}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+                            ${statusText}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        ${card.comment ? `<button onclick="openComment(${card.id})" class="text-blue-600 hover:text-blue-900">Открыть комментарий</button>` : '-'}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatDateShort(card.modifiedAt)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        ${(() => {
+                            let actionHtml = '';
+                            if (card.status === 'CREATED') {
+                                actionHtml = `<button onclick="showTakeInWorkModal(${card.id})" class="text-blue-600 hover:text-blue-900">Взять в работу</button>`;
+                            } else if (card.status === 'PENDING' || card.status === 'PREACTIVE') {
+                                actionHtml = `<button onclick="showActivateCardModal(${card.id})" class="text-blue-600 hover:text-blue-900">Активировать карту</button>`;
+                            } else if (card.status === 'ACTIVE') {
+                                actionHtml = `<button onclick="showBlockCardModal(${card.id})" class="text-red-600 hover:text-red-900">Заблокировать карту</button>`;
+                            } else if (card.status === 'BLOCKED') {
+                                actionHtml = `<button onclick="showUnblockCardModal(${card.id})" class="text-green-600 hover:text-green-800">Разблокировать карту</button>`;
+                            } else {
+                                actionHtml = '<span class="text-gray-400">Оформлена</span>';
+                            }
+                            return actionHtml;
+                        })()}
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            if (cards.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                        Нет заявок на карты
+                    </td>
+                `;
+                tbody.appendChild(row);
+            }
+        }
+    }
+    
+    // Глобальная функция для обработки карты
+    window.processCard = async function(cardId) {
+        if (typeof window.processCardAction === 'function') {
+            const updatedCard = await window.processCardAction(cardId);
+            if (updatedCard) await loadEmployeeCards();
+            return updatedCard;
+        }
+        showNotification('error', 'Не удалось обработать заявку');
+        return null;
+    };
+
+    // Взять заявку в работу (сотрудник) — переводит статус CREATED -> PENDING
+    window.takeInWork = async function(cardId) {
+        let apps = JSON.parse(localStorage.getItem('cardApplications') || '[]');
+        const idx = apps.findIndex(a => String(a.id) === String(cardId));
+        if (idx === -1) {
+            showNotification('error', 'Заявка не найдена');
+            return null;
+        }
+        apps[idx].status = 'PENDING';
+        apps[idx].modifiedAt = new Date().toISOString();
+        localStorage.setItem('cardApplications', JSON.stringify(apps));
+        // Notify listeners that applications changed
+        document.dispatchEvent(new CustomEvent('cardApplicationsUpdated', { detail: apps }));
+        showNotification('success', 'Заявка взята в работу');
+        if (typeof loadEmployeeCards === 'function') await loadEmployeeCards();
+        if (typeof loadClientCards === 'function') await loadClientCards();
+        return apps[idx];
+    };
+
+    // --- Расширенные Последние операции и статистика для сайдбара ---
+    (function() {
+        const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+
+        function formatAmount(amount) {
+            const abs = Math.abs(amount).toLocaleString('ru-RU');
+            return (amount < 0 ? '- ' : '+ ') + abs + ' ₽';
+        }
+
+
+        function renderRecentOperations(limit = 6) {
+            const list = document.getElementById('recentOpsList');
+            if (!list) return;
+            list.innerHTML = '';
+            const sorted = transactions.slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
+            const toShow = sorted.slice(0, limit);
+            if (toShow.length === 0) {
+                const div = document.createElement('div');
+                div.className = 'text-center text-gray-500 py-8';
+                div.innerHTML = '<p class="text-sm">Операций пока нет</p>';
+                list.appendChild(div);
+                return;
+            }
+            toShow.forEach(tx => {
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center';
+                const left = document.createElement('div');
+                left.innerHTML = `<p class="font-medium">${tx.title}</p><p class="text-sm text-gray-500">${new Date(tx.date).toLocaleString('ru-RU')}</p>`;
+                const right = document.createElement('p');
+                right.className = tx.amount < 0 ? 'text-red-600 font-medium' : 'text-green-600 font-medium';
+                right.textContent = formatAmount(tx.amount);
+                div.appendChild(left);
+                div.appendChild(right);
+                list.appendChild(div);
+            });
+        }
+
+        // Возвращает статистику {activeCards, opsLastMonth}
+        function computeDashboardStats() {
+            const clientCardsAll = JSON.parse(localStorage.getItem('clientCards') || '[]');
+            const userRole = localStorage.getItem('userRole') || 'client';
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const userId = userData.id || null;
+
+            let activeCards = 0;
+            if (userRole === 'client' && userId) {
+                activeCards = clientCardsAll.filter(c => c.clientId === userId && c.status === 'ACTIVE').length;
+            } else {
+                activeCards = clientCardsAll.filter(c => c.status === 'ACTIVE').length;
+            }
+
+            const now = new Date();
+            const monthAgo = new Date(now.getTime() - (30 * 24 * 60 * 60 * 1000));
+            const allTx = JSON.parse(localStorage.getItem('transactions') || '[]');
+            let opsLastMonth = 0;
+            if (userRole === 'client' && userId) {
+                opsLastMonth = allTx.filter(tx => tx.clientId === userId && new Date(tx.date) >= monthAgo).length;
+            } else {
+                opsLastMonth = allTx.filter(tx => new Date(tx.date) >= monthAgo).length;
+            }
+
+            const stats = { activeCards, opsLastMonth };
+            // Экспортируем глобально и уведомляем сайдбар
+            window.getDashboardStats = () => stats;
+            document.dispatchEvent(new CustomEvent('dashboardStatsUpdated', { detail: stats }));
+            return stats;
+        }
+
+        // --- Хелперы для карт и обработка заявок ---
+        async function getClientCards() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const userId = userData.id || null;
+            // Ensure storage exists but do not seed demo cards
+            if (!localStorage.getItem('clientCards')) localStorage.setItem('clientCards', JSON.stringify([]));
+
+            const clientCards = JSON.parse(localStorage.getItem('clientCards') || '[]');
+            // Return only cards explicitly tied to current user via clientId
+            if (!userId) return [];
+            return clientCards.filter(c => c.clientId === userId);
+        }
+
+        async function getClientApplications() {
+            const apps = JSON.parse(localStorage.getItem('cardApplications') || '[]');
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const userId = userData.id || null;
+            if (!userId) return [];
+            return apps.filter(a => a.clientId === userId);
+        }
+
+        async function renderClientApplications() {
+            const apps = await getClientApplications();
+            const section = document.getElementById('clientApplicationsSection');
+            const tbody = document.querySelector('#clientApplicationsTable tbody');
+            if (!section || !tbody) return;
+            if (!apps || apps.length === 0) {
+                section.classList.add('hidden');
+                tbody.innerHTML = '';
+                return;
+            }
+            section.classList.remove('hidden');
+            tbody.innerHTML = '';
+            apps.forEach(app => {
+                const row = document.createElement('tr');
+
+                let statusClass = '';
+                let statusText = '';
+                switch(app.status) {
+                    case 'ACTIVE':
+                        statusClass = 'bg-green-100 text-green-800';
+                        statusText = 'Активна';
+                        break;
+                    case 'CREATED':
+                        statusClass = 'bg-gray-100 text-gray-800';
+                        statusText = 'Заявка создана';
+                        break;
+                    case 'PENDING':
+                        statusClass = 'bg-yellow-100 text-yellow-800';
+                        statusText = 'В обработке';
+                        break;
+                    default:
+                        statusClass = 'bg-gray-100 text-gray-800';
+                        statusText = app.status;
+                }
+
+                const commentCell = app.comment ? `<button onclick="openComment(${app.id})" class="text-blue-600 hover:text-blue-900">Открыть комментарий</button>` : '-';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatDateShort(app.applicationDate)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${commentCell}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+                            ${statusText}
+                        </span>
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // Экспортируем функции для глобального использования
+        window.getClientApplications = getClientApplications;
+        window.renderClientApplications = renderClientApplications;
+
+        async function getAllCards() {
+            const cards = JSON.parse(localStorage.getItem('clientCards') || '[]');
+            const apps = JSON.parse(localStorage.getItem('cardApplications') || '[]');
+            const appItems = apps.map(a => ({ id: a.id, cardNumber: a.cardNumber || '—', clientName: a.clientName || 'Клиент', clientId: a.clientId || null, status: a.status || 'PENDING', applicationDate: a.applicationDate, modifiedAt: a.modifiedAt || a.applicationDate, comment: a.comment || '' }));
+            const cardItems = cards.map(c => ({ id: c.id, cardNumber: c.cardNumber, clientName: c.clientName || '—', clientId: c.clientId || null, status: c.status, applicationDate: c.applicationDate || '—', modifiedAt: c.modifiedAt || c.applicationDate || '—', comment: c.comment || '' }));
+            return [...appItems, ...cardItems];
+        }
+
+        // Обработать заявку (сотрудник) — переводит заявку в активную карту
+        async function processCardAction(cardId) {
+            let apps = JSON.parse(localStorage.getItem('cardApplications') || '[]');
+            const idx = apps.findIndex(a => String(a.id) === String(cardId));
+            if (idx !== -1) {
+                const app = apps[idx];
+                apps.splice(idx,1);
+                localStorage.setItem('cardApplications', JSON.stringify(apps));
+                document.dispatchEvent(new CustomEvent('cardApplicationsUpdated', { detail: apps }));
+
+                const clientCards = JSON.parse(localStorage.getItem('clientCards') || '[]');
+                // Сохраняем комментарий из заявки и дату подачи (если есть) и переносим модификацию
+                // Генерируем полный 12-значный номер вида "1234 5678 9012" и маскированный вид для сотрудников
+                function rand4() { return String(Math.floor(1000 + Math.random()*9000)); }
+                const fullNumber = `${rand4()} ${rand4()} ${rand4()} ${rand4()}`;
+                const last4 = fullNumber.split(' ').pop();
+                const newCard = { id: Date.now(), cardNumber: '•••• •••• •••• ' + last4, fullNumber, status:'ACTIVE', expiryDate:'12/2028', clientName: app.clientName, clientId: app.clientId || null, applicationDate: app.applicationDate || new Date().toISOString(), comment: app.comment || '', modifiedAt: app.modifiedAt || app.applicationDate || new Date().toISOString() };
+                clientCards.push(newCard);
+                localStorage.setItem('clientCards', JSON.stringify(clientCards));
+
+                showNotification('success', 'Карта активирована');
+                // Обновляем UI
+                await loadEmployeeCards();
+                await loadClientCards();
+                computeDashboardStats();
+                return newCard;
+            }
+
+            const clientCards = JSON.parse(localStorage.getItem('clientCards') || '[]');
+            const idxCard = clientCards.findIndex(c => String(c.id) === String(cardId));
+            if (idxCard !== -1) {
+                if (clientCards[idxCard].status !== 'ACTIVE') {
+                    clientCards[idxCard].status = 'ACTIVE';
+                    clientCards[idxCard].modifiedAt = new Date().toISOString();
+                    localStorage.setItem('clientCards', JSON.stringify(clientCards));
+                    showNotification('success', 'Карта активирована');
+                    await loadEmployeeCards();
+                    await loadClientCards();
+                    computeDashboardStats();
+                    return clientCards[idxCard];
+                }
+                return clientCards[idxCard];
+            }
+
+            return null;
+        }
+
+        // Экспортируем обработчик для глобального использования (и совместимости)
+        window.processCardAction = processCardAction;
+        window.getClientCards = getClientCards;
+        window.getAllCards = getAllCards;
+
+        // Обработчики модального окна оформления карты
+        document.addEventListener('DOMContentLoaded', function() {
+            const applyBtn = document.getElementById('applyCardBtn');
+            const modal = document.getElementById('applyCardModal');
+            const closeBtn = document.getElementById('closeApplyModal');
+            const cancelBtn = document.getElementById('cancelApply');
+            const submitBtn = document.getElementById('submitCardApplication');
+
+            function showModal() { if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); } }
+            function closeModal() { if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); } }
+
+            if (applyBtn) applyBtn.addEventListener('click', showModal);
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+            if (modal) modal.addEventListener('click', (e)=> { if (e.target === modal) closeModal(); });
+
+            const viewModal = document.getElementById('viewCommentModal');
+            const viewText = document.getElementById('viewCommentText');
+            const closeView = document.getElementById('closeViewComment');
+            const closeView2 = document.getElementById('closeViewComment2');
+            function showViewModal() { if (viewModal) { viewModal.classList.remove('hidden'); viewModal.classList.add('flex'); } }
+            function closeViewModal() { if (viewModal) { viewModal.classList.add('hidden'); viewModal.classList.remove('flex'); } }
+            if (viewModal) viewModal.addEventListener('click', (e)=> { if (e.target === viewModal) closeViewModal(); });
+            if (closeView) closeView.addEventListener('click', closeViewModal);
+            if (closeView2) closeView2.addEventListener('click', closeViewModal);
+
+            // Экспортируем функцию для открытия комментария — ищем сначала в заявках, затем в оформленных картах
+            window.openComment = function(id) {
+                const apps = JSON.parse(localStorage.getItem('cardApplications') || '[]');
+                let found = apps.find(a => String(a.id) === String(id));
+                if (!found) {
+                    const cards = JSON.parse(localStorage.getItem('clientCards') || '[]');
+                    found = cards.find(c => String(c.id) === String(id));
+                }
+                if (!found || !found.comment) {
+                    if (viewText) viewText.textContent = 'Комментарий отсутствует';
+                } else {
+                    if (viewText) viewText.textContent = found.comment;
+                }
+                showViewModal();
+            };
+
+            const takeModal = document.getElementById('takeInWorkModal');
+            const takeMessage = document.getElementById('takeInWorkMessage');
+            const takeConfirm = document.getElementById('confirmTakeInWork');
+            const takeCancel = document.getElementById('cancelTakeInWork');
+            const takeCloseBtn = document.getElementById('closeTakeInWorkModal');
+            let takeTargetId = null;
+            function showTakeModal() { if (takeModal) { takeModal.classList.remove('hidden'); takeModal.classList.add('flex'); } }
+            function closeTakeModal() { if (takeModal) { takeModal.classList.add('hidden'); takeModal.classList.remove('flex'); } }
+            if (takeModal) takeModal.addEventListener('click', (e)=> { if (e.target === takeModal) closeTakeModal(); });
+            if (takeCancel) takeCancel.addEventListener('click', closeTakeModal);
+            if (takeCloseBtn) takeCloseBtn.addEventListener('click', closeTakeModal);
+
+            window.showTakeInWorkModal = function(id) {
+                takeTargetId = id;
+                const apps = JSON.parse(localStorage.getItem('cardApplications') || '[]');
+                const app = apps.find(a=> String(a.id) === String(id)) || {};
+                const displayName = app.clientName ? app.clientName : 'заявку';
+                const date = app.applicationDate ? formatDateShort(app.applicationDate) : '';
+                if (takeMessage) takeMessage.textContent = `Вы уверены, что хотите взять в работу заявку на открытие карты клиента ${displayName}${date ? ' от ' + date : ''}?\nПосле подтверждения подготовьте все необходимые документы и пригласите клиента в офис банка для выдачи карты.`;
+                showTakeModal();
+            };
+
+            if (takeConfirm) takeConfirm.addEventListener('click', async () => {
+                if (takeTargetId) {
+                    await window.takeInWork(takeTargetId);
+                    takeTargetId = null;
+                }
+                closeTakeModal();
+            });
+
+            const activateModal = document.getElementById('activateCardModal');
+            const activateMessage = document.getElementById('activateCardMessage');
+            const activateConfirm = document.getElementById('confirmActivateCard');
+            const activateCancel = document.getElementById('cancelActivateCard');
+            const activateCloseBtn = document.getElementById('closeActivateCardModal');
+            let activateTargetId = null;
+            function showActivateModal() { if (activateModal) { activateModal.classList.remove('hidden'); activateModal.classList.add('flex'); } }
+            function closeActivateModal() { if (activateModal) { activateModal.classList.add('hidden'); activateModal.classList.remove('flex'); } }
+            if (activateModal) activateModal.addEventListener('click', (e)=> { if (e.target === activateModal) closeActivateModal(); });
+            if (activateCancel) activateCancel.addEventListener('click', closeActivateModal);
+            if (activateCloseBtn) activateCloseBtn.addEventListener('click', closeActivateModal);
+
+            window.showActivateCardModal = function(id) {
+                activateTargetId = id;
+                const apps = JSON.parse(localStorage.getItem('cardApplications') || '[]');
+                let item = apps.find(a => String(a.id) === String(id));
+                let date = '';
+                let client = '';
+                if (item) {
+                    client = item.clientName || '';
+                    date = item.applicationDate ? formatDateShort(item.applicationDate) : '';
+                } else {
+                    const cards = JSON.parse(localStorage.getItem('clientCards') || '[]');
+                    const c = cards.find(c=> String(c.id) === String(id)) || {};
+                    client = c.clientName || '';
+                    date = c.applicationDate ? formatDateShort(c.applicationDate) : '';
+                }
+                const namePart = client ? `${client}${date ? ' от ' + date : ''}` : '';
+                if (activateMessage) activateMessage.textContent = `Пожалуйста, убедитесь, что карта передана клиенту и договор обслуживания подписан обеими сторонами.\n(Заявка клиента ${namePart})` ;
+                showActivateModal();
+            };
+
+            if (activateConfirm) activateConfirm.addEventListener('click', async () => {
+                if (activateTargetId) {
+                    await window.processCard(activateTargetId);
+                    activateTargetId = null;
+                }
+                closeActivateModal();
+            });
+
+            const blockModal = document.getElementById('blockCardModal');
+            const blockMessage = document.getElementById('blockCardMessage');
+            const blockConfirm = document.getElementById('confirmBlockCard');
+            const blockCancel = document.getElementById('cancelBlockCard');
+            const blockCloseBtn = document.getElementById('closeBlockCardModal');
+            let blockTargetId = null;
+            function showBlockModal() { if (blockModal) { blockModal.classList.remove('hidden'); blockModal.classList.add('flex'); } }
+            function closeBlockModal() { if (blockModal) { blockModal.classList.add('hidden'); blockModal.classList.remove('flex'); } }
+            if (blockModal) blockModal.addEventListener('click', (e)=> { if (e.target === blockModal) closeBlockModal(); });
+            if (blockCancel) blockCancel.addEventListener('click', closeBlockModal);
+            if (blockCloseBtn) blockCloseBtn.addEventListener('click', closeBlockModal);
+
+            window.showBlockCardModal = function(id) {
+                blockTargetId = id;
+                const cards = JSON.parse(localStorage.getItem('clientCards') || '[]');
+                const c = cards.find(c=> String(c.id) === String(id)) || {};
+                const name = c.clientName ? c.clientName : '';
+                const num = c.cardNumber ? c.cardNumber : '';
+                if (blockMessage) blockMessage.textContent = `Вы уверены, что хотите заблокировать карту ${num}${name ? ' клиента ' + name : ''}?\nКлиент не сможет использовать карту до разблокировки.`;
+                showBlockModal();
+            };
+
+            if (blockConfirm) blockConfirm.addEventListener('click', async () => {
+                if (!blockTargetId) { closeBlockModal(); return; }
+                await window.blockCard(blockTargetId);
+                blockTargetId = null;
+                closeBlockModal();
+            });
+
+            // Блокировка карты (сотрудник)
+            window.blockCard = async function(cardId) {
+                const clientCards = JSON.parse(localStorage.getItem('clientCards') || '[]');
+                const idx = clientCards.findIndex(c => String(c.id) === String(cardId));
+                if (idx === -1) {
+                    showNotification('error', 'Карта не найдена');
+                    return null;
+                }
+                clientCards[idx].status = 'BLOCKED';
+                clientCards[idx].modifiedAt = new Date().toISOString();
+                localStorage.setItem('clientCards', JSON.stringify(clientCards));
+
+                showNotification('success', 'Карта заблокирована');
+                if (typeof loadEmployeeCards === 'function') await loadEmployeeCards();
+                if (typeof loadClientCards === 'function') await loadClientCards();
+                // Обновляем общую статистику
+                computeDashboardStats();
+                return clientCards[idx];
+            };
+
+            // Разблокировка — модалка и обработчики
+            const unblockModal = document.getElementById('unblockCardModal');
+            const unblockMessage = document.getElementById('unblockCardMessage');
+            const unblockConfirm = document.getElementById('confirmUnblockCard');
+            const unblockCancel = document.getElementById('cancelUnblockCard');
+            const unblockCloseBtn = document.getElementById('closeUnblockCardModal');
+            let unblockTargetId = null;
+            function showUnblockModal() { if (unblockModal) { unblockModal.classList.remove('hidden'); unblockModal.classList.add('flex'); } }
+            function closeUnblockModal() { if (unblockModal) { unblockModal.classList.add('hidden'); unblockModal.classList.remove('flex'); } }
+            if (unblockModal) unblockModal.addEventListener('click', (e)=> { if (e.target === unblockModal) closeUnblockModal(); });
+            if (unblockCancel) unblockCancel.addEventListener('click', closeUnblockModal);
+            if (unblockCloseBtn) unblockCloseBtn.addEventListener('click', closeUnblockModal);
+
+            window.showUnblockCardModal = function(id) {
+                unblockTargetId = id;
+                const cards = JSON.parse(localStorage.getItem('clientCards') || '[]');
+                const c = cards.find(c=> String(c.id) === String(id)) || {};
+                const name = c.clientName ? c.clientName : '';
+                const num = c.cardNumber ? c.cardNumber : '';
+                if (unblockMessage) unblockMessage.textContent = `Вы уверены, что хотите разблокировать карту ${num}${name ? ' клиента ' + name : ''}?\nКлиент снова сможет использовать карту.`;
+                showUnblockModal();
+            };
+
+            if (unblockConfirm) unblockConfirm.addEventListener('click', async () => {
+                if (!unblockTargetId) { closeUnblockModal(); return; }
+                await window.unblockCard(unblockTargetId);
+                unblockTargetId = null;
+                closeUnblockModal();
+            });
+
+            window.unblockCard = async function(cardId) {
+                const clientCards = JSON.parse(localStorage.getItem('clientCards') || '[]');
+                const idx = clientCards.findIndex(c => String(c.id) === String(cardId));
+                if (idx === -1) {
+                    showNotification('error', 'Карта не найдена');
+                    return null;
+                }
+                clientCards[idx].status = 'ACTIVE';
+                clientCards[idx].modifiedAt = new Date().toISOString();
+                localStorage.setItem('clientCards', JSON.stringify(clientCards));
+
+                showNotification('success', 'Карта разблокирована');
+                if (typeof loadEmployeeCards === 'function') await loadEmployeeCards();
+                if (typeof loadClientCards === 'function') await loadClientCards();
+                computeDashboardStats();
+                return clientCards[idx];
+            };
+
+            const applyConfirmModal = document.getElementById('applyConfirmModal');
+            const applyConfirmMsg = document.getElementById('applyConfirmMessage');
+            const confirmApplyBtn = document.getElementById('confirmApply');
+            const cancelApplyConfirmBtn = document.getElementById('cancelApplyConfirm');
+            const closeApplyConfirmBtn = document.getElementById('closeApplyConfirmModal');
+            let pendingApplyData = null;
+            function showApplyConfirmModal() { if (applyConfirmModal) { applyConfirmModal.classList.remove('hidden'); applyConfirmModal.classList.add('flex'); } }
+            function closeApplyConfirmModal() { if (applyConfirmModal) { applyConfirmModal.classList.add('hidden'); applyConfirmModal.classList.remove('flex'); } }
+            if (applyConfirmModal) applyConfirmModal.addEventListener('click', (e)=> { if (e.target === applyConfirmModal) closeApplyConfirmModal(); });
+            if (closeApplyConfirmBtn) closeApplyConfirmBtn.addEventListener('click', closeApplyConfirmModal);
+            if (cancelApplyConfirmBtn) cancelApplyConfirmBtn.addEventListener('click', closeApplyConfirmModal);
+
+            if (submitBtn) submitBtn.addEventListener('click', async () => { 
+                const comment = document.getElementById('applyCardComment').value || '';
+                pendingApplyData = { comment };
+                if (applyConfirmMsg) applyConfirmMsg.textContent = `Вы уверены, что хотите отправить заявку на создание карты?${comment ? '\nКомментарий: ' + comment : ''}`;
+                showApplyConfirmModal();
+            });
+
+            if (confirmApplyBtn) confirmApplyBtn.addEventListener('click', async () => {
+                if (!pendingApplyData) { closeApplyConfirmModal(); return; }
+                const comment = pendingApplyData.comment || '';
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                const clientName = userData.lastName ? `${userData.lastName} ${userData.firstName || ''}`.trim() : 'Клиент';
+                const apps = JSON.parse(localStorage.getItem('cardApplications') || '[]');
+                const now = new Date().toISOString();
+                const app = { id: Date.now(), clientId: userData.id, clientName, comment, status: 'CREATED', applicationDate: now, modifiedAt: now };
+                apps.push(app);
+                localStorage.setItem('cardApplications', JSON.stringify(apps));
+                document.dispatchEvent(new CustomEvent('cardApplicationsUpdated', { detail: apps }));
+                const commentEl = document.getElementById('applyCardComment'); if (commentEl) commentEl.value = '';
+                showNotification('success', 'Заявка успешно отправлена');
+                closeModal();
+                closeApplyConfirmModal();
+                computeDashboardStats();
+                await loadClientCards();
+                if (typeof loadEmployeeCards === 'function') await loadEmployeeCards();
+                pendingApplyData = null;
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', ()=> {
+            renderRecentOperations(6);
+            // Подождём загрузки карт и затем вычислим статистику
+            setTimeout(computeDashboardStats, 300);
+
+            const loadBtn = document.getElementById('loadMoreOps');
+            if (loadBtn) loadBtn.addEventListener('click', ()=> renderRecentOperations(transactions.length));
+        });
+    })();
+</script>
+</body>
+</html>

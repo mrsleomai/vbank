@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="requires-auth" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансовая грамотность | В-Банк</title>
+    <script src="/script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="/components/navbar.js"></script>
+    <script src="/components/footer.js"></script>
+    <script src="/components/accessibility.js"></script>
+    <script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+    <script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+</head>
+<body data-requires-auth="true" class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+    <custom-accessibility></custom-accessibility>
+
+    <main class="p-8">
+        <div class="site-container site-container--wide">
+            <div class="site-card">
+                <a href="/articles" class="text-sm text-blue-600 hover:underline">← Вернуться к ленте новостей</a>
+                <h1 class="text-3xl font-bold text-blue-800 mb-6 mt-4">Финансовая грамотность</h1>
+                <hr class="my-6 border-gray-200">
+
+                <p class="text-gray-700 mb-4">Финансовая грамотность помогает принимать осознанные решения: от повседневных трат до накоплений и инвестиций. Ниже — простая система, которую можно применять в любой семье или для личных финансов.</p>
+
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Бюджетирование: метод 50/30/20</h2>
+                <p class="text-gray-700">Разделите доходы примерно так: 50% — обязательные расходы (жилье, еда), 30% — желаемые траты, 20% — сбережения и долговые выплаты. Пример: при доходе 80 000 ₽ — 40 000 ₽ обязательные, 24 000 ₽ желания, 16 000 ₽ накопления/погашение долгов.</p>
+
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Создание резерва и накопления</h2>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li>Цель: накопить резерв на 3–6 месяцев расходов.</li>
+                    <li>Используйте отдельный счёт или высоколиквидный инструмент (онлайн-сбережения, краткосрочные депозиты).</li>
+                    <li>Автоматизируйте отчисления — регулярные переводы в день зарплаты.</li>
+                </ul>
+
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Управление долгами</h2>
+                <p class="text-gray-700">Сосредоточьтесь сначала на долгах с высокой ставкой (кредитные карты, микрозаймы). Если у вас несколько долгов — рассмотрите стратегию «лавины» (погашать сначала с самой высокой процентной ставкой) или «снежный ком» (сначала закрывать самые маленькие долги для мотивации).</p>
+
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Полезные привычки</h2>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li>Ежемесячно сверяйте банковские выписки и планы расходов.</li>
+                    <li>Откладывайте хотя бы 5–10% дохода на непредвиденные расходы, даже если вы откладываете мало — важна системность.</li>
+                    <li>Планируйте крупные покупки и ищите выгодные предложения заранее.</li>
+                </ul>
+
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Часто задаваемые вопросы</h2>
+                <div class="space-y-3 text-gray-700">
+                    <div>
+                        <strong>В: Сколько должно быть в резерве?</strong>
+                        <p class="mt-1">О: Идеально — 3–6 месяцев потребительских расходов; для фрилансеров или непостоянного дохода — 6–12 месяцев.</p>
+                    </div>
+                    <div>
+                        <strong>В: Как начать откладывать если доход небольшой?</strong>
+                        <p class="mt-1">О: Автоматизируйте отчисления небольших сумм — 5–10% — и постепенно увеличивайте их при возможности.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">
+                        <i data-feather="calendar" class="w-4 h-4 inline mr-1"></i>
+                        Опубликовано: 01 августа 2025
+                        <span class="mx-2">•</span>
+                        <i data-feather="clock" class="w-4 h-4 inline mr-1"></i>
+                        Время чтения: 4 мин
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        <i data-feather="user" class="w-4 h-4 inline mr-1"></i>
+                        Автор: Отдел финансового образования В‑Банк
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

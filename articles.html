@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="requires-auth" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лента новостей | В-Банк</title>
+    <script src="/script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="/components/navbar.js"></script>
+    <script src="/components/footer.js"></script>
+    <script src="/components/accessibility.js"></script>
+    <script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+    <script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+</head>
+<body data-requires-auth="true" class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+    <custom-accessibility></custom-accessibility>
+
+    <main class="p-8">
+            <div class="site-container site-container--wide">
+                <div class="site-card">
+                    <h1 class="text-3xl font-bold text-blue-800 mb-8">Лента новостей</h1>
+                    
+                    <div class="prose max-w-none">
+                        <p class="text-gray-700 mb-6">Ниже вы найдёте подборку статей — нажмите на карточку, чтобы перейти к полному тексту.</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4" id="articlesList">
+                            <a href="/articles/115-fz" class="block border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow group">
+                                <h3 class="font-semibold text-gray-800 mb-2 group-hover:text-blue-700">Закон № 115‑ФЗ: что это и как избежать блокировки</h3>
+                                <p class="text-gray-600 text-sm mb-4">Краткое объяснение ключевых положений закона и рекомендации для клиентов.</p>
+                                <div class="text-sm text-gray-500">
+                                    <span>15 октября 2025</span>
+                                    <span class="mx-2">•</span>
+                                    <span>5 мин</span>
+                                </div>
+                            </a>
+
+                            <a href="/articles/choose-card" class="block border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow group">
+                                <h3 class="font-semibold text-gray-800 mb-2 group-hover:text-blue-700">Как выбрать подходящую карту</h3>
+                                <p class="text-gray-600 text-sm mb-4">Сравнение условий различных продуктов.</p>
+                                <div class="text-sm text-gray-500">
+                                    <span>10 сентября 2025</span>
+                                    <span class="mx-2">•</span>
+                                    <span>3 мин</span>
+                                </div>
+                            </a>
+
+                            <a href="/articles/finance-basics" class="block border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow group">
+                                <h3 class="font-semibold text-gray-800 mb-2 group-hover:text-blue-700">Финансовая грамотность</h3>
+                                <p class="text-gray-600 text-sm mb-4">Основы управления личными финансами.</p>
+                                <div class="text-sm text-gray-500">
+                                    <span>01 августа 2025</span>
+                                    <span class="mx-2">•</span>
+                                    <span>4 мин</span>
+                                </div>
+                            </a>
+
+                            <a href="/articles/investing" class="block border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow group">
+                                <h3 class="font-semibold text-gray-800 mb-2 group-hover:text-blue-700">Инвестиции для начинающих</h3>
+                                <p class="text-gray-600 text-sm mb-4">С чего начать инвестирование.</p>
+                                <div class="text-sm text-gray-500">
+                                    <span>20 июля 2025</span>
+                                    <span class="mx-2">•</span>
+                                    <span>6 мин</span>
+                                </div>
+                            </a>
+
+                            <a href="/articles/card-security" class="block border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow group">
+                                <h3 class="font-semibold text-gray-800 mb-2 group-hover:text-blue-700">Как защитить банковскую карту от мошенников</h3>
+                                <p class="text-gray-600 text-sm mb-4">Практические советы по защите карты и действия при подозрительных списаниях.</p>
+                                <div class="text-sm text-gray-500">
+                                    <span>28 марта 2025</span>
+                                    <span class="mx-2">•</span>
+                                    <span>4 мин</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+            </div>
+        </main>
+    </div>
+
+    <custom-footer></custom-footer>
+
+    <script>
+        feather.replace();
+        
+        document.querySelectorAll('details').forEach(details => {
+            details.addEventListener('toggle', function() {
+                if (this.open) {
+                    const icon = this.querySelector('summary i');
+                    if (icon) {
+                        icon.setAttribute('data-feather', 'chevron-up');
+                        feather.replace();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

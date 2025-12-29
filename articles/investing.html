@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="requires-auth" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инвестиции для начинающих | В-Банк</title>
+    <script src="/script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="/components/navbar.js"></script>
+    <script src="/components/footer.js"></script>
+    <script src="/components/accessibility.js"></script>
+    <script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+    <script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+</head>
+<body data-requires-auth="true" class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+    <custom-accessibility></custom-accessibility>
+
+    <main class="p-8">
+        <div class="site-container site-container--wide">
+            <div class="site-card">
+                <a href="/articles" class="text-sm text-blue-600 hover:underline">← Вернуться к ленте новостей</a>
+                <h1 class="text-3xl font-bold text-blue-800 mb-6 mt-4">Инвестиции для начинающих</h1>
+                <hr class="my-6 border-gray-200">
+
+                <p class="text-gray-700 mb-4">Инвестиции помогают преумножать сбережения, но требуют ясного плана и дисциплины. Важно понять горизонты, риск и выбрать подходящие инструменты.</p>
+
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Основные классы активов</h2>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li><strong>Депозиты и сберегательные счета</strong> — низкий риск, подходят для краткосрочных целей.</li>
+                    <li><strong>Облигации</strong> — стабильный доход, ниже волатильность по сравнению с акциями.</li>
+                    <li><strong>Акции</strong> — выше риск и потенциальная доходность для долгосрочных целей.</li>
+                    <li><strong>ETF и паевые фонды</strong> — удобная диверсификация при невысокой комиссии.</li>
+                </ul>
+
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Примеры портфелей</h2>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li><strong>Консервативный</strong> — 70% облигации, 20% депозиты, 10% акции.</li>
+                    <li><strong>Сбалансированный</strong> — 40% облигации, 10% депозиты, 50% акции/ETF.</li>
+                    <li><strong>Агрессивный</strong> — 70–90% акции/ETF, 10–30% облигации.</li>
+                </ul>
+
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Как начать</h2>
+                <ol class="list-decimal pl-5 space-y-2 text-gray-700">
+                    <li>Определите цель и горизонт (накопить на авто — 3–5 лет, на пенсию — 10+ лет).</li>
+                    <li>Оцените риск и выберите подходящую аллокацию.</li>
+                    <li>Начните с регулярных небольших инвестиций (DCA — усреднение покупок).</li>
+                    <li>Обратите внимание на налоги и комиссии — они снижают доходность.</li>
+                </ol>
+
+                <h2 class="text-xl font-semibold text-gray-800 mt-6 mb-3">Часто задаваемые вопросы</h2>
+                <div class="space-y-3 text-gray-700">
+                    <div>
+                        <strong>В: Стоит ли начинать с акций или с ETF?</strong>
+                        <p class="mt-1">О: Для большинства начинающих ETF дают хорошую диверсификацию и меньший риск, чем выбор отдельных акций.</p>
+                    </div>
+                    <div>
+                        <strong>В: Какую часть дохода инвестировать?</strong>
+                        <p class="mt-1">О: Начните с 5–15% и увеличивайте по мере роста доходов и уверенности.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">
+                        <i data-feather="calendar" class="w-4 h-4 inline mr-1"></i>
+                        Опубликовано: 20 июля 2025
+                        <span class="mx-2">•</span>
+                        <i data-feather="clock" class="w-4 h-4 inline mr-1"></i>
+                        Время чтения: 6 мин
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        <i data-feather="user" class="w-4 h-4 inline mr-1"></i>
+                        Автор: Аналитический отдел В‑Банк
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

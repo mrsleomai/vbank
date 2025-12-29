@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница не найдена | В-Банк</title>
+    <script src="script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="/components/accessibility.js"></script>
+    <script src="https://lidrekon.ru/slep/js/jquery.js"></script>
+    <script src="https://lidrekon.ru/slep/js/uhpv-hover-full.min.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <custom-accessibility></custom-accessibility>
+    <header class="bg-blue-800 text-white py-4">
+        <div class="container mx-auto px-4">
+            <a href="/login" class="flex items-center space-x-3 no-underline">
+                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                    <span class="text-blue-800 font-bold text-xl">В</span>
+                </div>
+                <span class="text-xl font-bold">В-Банк</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-1 py-8">
+        <div class="site-container">
+            <div class="site-card text-center">
+                <div class="mb-8">
+                    <div class="text-9xl font-bold text-blue-800 mb-4">404</div>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-4">Страница не найдена</h1>
+                    <p class="text-gray-600 mb-8">К сожалению, запрашиваемая вами страница не существует или была перемещена.</p>
+                </div>
+            
+            <div id="redirectButtons" class="space-y-4">
+            </div>
+            
+            <div class="mt-8">
+                <p class="text-sm text-gray-500 mb-2">Нужна помощь?</p>
+                <a href="tel:+79535242478" class="text-blue-600 hover:text-blue-800 font-medium">
+                    +7 (953) 524-24-78
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Простой футер -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm mb-2">Служба поддержки В-Банка</p>
+            <p class="text-lg font-semibold mb-4">+7 (953) 524-24-78</p>
+            <p class="text-xs text-gray-400">
+                © 2025 В-Банк. Все права защищены.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Инициализация иконок
+        feather.replace();
+        
+        // Проверка авторизации и отображение соответствующих кнопок
+        document.addEventListener('DOMContentLoaded', function() {
+            const isAuthenticated = localStorage.getItem('authToken') !== null;
+            const buttonsDiv = document.getElementById('redirectButtons');
+            
+            if (buttonsDiv) {
+                if (isAuthenticated) {
+                    // Пользователь авторизован - предлагаем вернуться в ЛК
+                    buttonsDiv.innerHTML = `
+                        <div class="flex flex-col space-y-4">
+                            <a href="/dashboard" 
+                               class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors font-medium">
+                                Вернуться в личный кабинет
+                            </a>
+                            <a href="/login" 
+                               class="border border-blue-600 text-blue-600 px-6 py-3 rounded-md hover:bg-blue-50 transition-colors">
+                                На главную страницу
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    // Пользователь не авторизован - предлагаем войти или зарегистрироваться
+                    buttonsDiv.innerHTML = `
+                        <div class="flex flex-col space-y-4">
+                            <a href="/login" 
+                               class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors font-medium">
+                                Войти в аккаунт
+                            </a>
+                            <a href="/register" 
+                               class="border border-blue-600 text-blue-600 px-6 py-3 rounded-md hover:bg-blue-50 transition-colors">
+                                Стать клиентом
+                            </a>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Автоматический редирект через 10 секунд
+            setTimeout(() => {
+                if (isAuthenticated) {
+                    window.location.href = '/dashboard';
+                } else {
+                    window.location.href = '/login';
+                }
+            }, 10000);
+        });
+    </script>
+</body>
+</html>
